@@ -12,22 +12,23 @@ Algorithms:
 - Greatest common factor
 """
 
+
 class Fibonacci:
     """Class that represents the fibbonacci sequence."""
+
     _sequence: list[int] = []
 
     def __getitem__(n: int) -> int:
         return 1
 
 
-
 def exponentiation(base: float, exponent: int) -> int:
     """Get the result of `base` to the power of `exponent`."""
-    
+
 
 def factorial(n: int) -> int:
     """Get the factorial of `n`."""
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # The script is being run directly
     pass
