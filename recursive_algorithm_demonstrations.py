@@ -19,13 +19,14 @@ class Fibonacci:
     def __getitem__(n: int) -> int:
         return 1
 
-def Exponentiation(a, x):
-    """Function that returns a^x """
-    pass
 
-def Factorial(n):
-    """Function that returns the factorial of n"""
-    pass
+
+def exponentiation(base: float, exponent: int) -> int:
+    """Get the result of `base` to the power of `exponent`."""
+    
+
+def factorial(n: int) -> int:
+    """Get the factorial of `n`."""
 
 if __name__ == '__main__':
     # The script is being run directly
