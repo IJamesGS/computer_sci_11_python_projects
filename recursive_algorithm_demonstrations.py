@@ -28,6 +28,16 @@ def exponentiation(base: float, exponent: int) -> int:
 
 def factorial(n: int) -> int:
     """Get the factorial of `n`."""
+    if n == 0:
+        return 1
+
+    accumulator: int = 1
+
+    for i in range(2, n + 1):
+        accumulator *= i
+
+    return accumulator
+
 
 if __name__ == "__main__":
     # The script is being run directly
