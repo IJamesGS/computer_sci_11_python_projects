@@ -29,5 +29,4 @@ def Factorial(n):
 
 if __name__ == '__main__':
     # The script is being run directly
-    
-pass
+    pass
