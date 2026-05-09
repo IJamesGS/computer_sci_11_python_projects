@@ -8,7 +8,7 @@ def cast_input[T](
     cancel_str: str = "exit",
     additional_conditions: dict[str, Callable[[T], bool]] | None = None,
     error_message: str = "Invalid entry! Try again!",
-) -> T | None:
+) -> T:
     """Get input from the user, validating and casting it.
 
     Args:
@@ -37,7 +37,7 @@ def cast_input[T](
             # Check if the string contains the cancel string, unless
             # it's an empty string.
             if cancel_str != "" and input_str.lower().find(cancel_str) != -1:
-                return None
+                raise KeyboardInterrupt("User entered cancel string.")
 
             # Cast to the specified type.
             input_val = in_type(input_str)
@@ -69,7 +69,7 @@ def cast_input_list[T](
     cancel_str: str = "exit",
     additional_conditions: dict[str, Callable[[list[T]], bool]] | None = None,
     error_message: str = "Invalid entry! Try again!",
-) -> list[T] | None:
+) -> list[T]:
     """Get input from user, validating and casting it to a list.
 
     Args:
@@ -101,7 +101,7 @@ def cast_input_list[T](
             # Check if the string contains the cancel string, unless
             # it's an empty string.
             if cancel_str != "" and input_str.lower().find(cancel_str) != -1:
-                return None
+                raise KeyboardInterrupt("User entered cancel string.")
 
             # Split the input into a list, based on commas.
             input_str_list: list[str] = input_str.split(sep)
