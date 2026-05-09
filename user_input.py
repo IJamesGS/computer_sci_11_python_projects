@@ -5,7 +5,7 @@ from typing import LiteralString
 def cast_input[T](
     prompt: str,
     in_type: Callable[[str], T],
-    cancel_str: str = "cancel",
+    cancel_str: str = "exit",
     additional_conditions: dict[str, Callable[[T], bool]] | None = None,
     error_message: str = "Invalid entry! Try again!",
 ) -> T | None:
@@ -66,7 +66,7 @@ def cast_input_list[T](
     in_type: Callable[[str], T],
     num_val: int = -1,
     sep: LiteralString | None = None,
-    cancel_str: str = "cancel",
+    cancel_str: str = "exit",
     additional_conditions: dict[str, Callable[[list[T]], bool]] | None = None,
     error_message: str = "Invalid entry! Try again!",
 ) -> list[T] | None:
