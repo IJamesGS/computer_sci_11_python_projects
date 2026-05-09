@@ -65,6 +65,25 @@ def factorial(n: int) -> int:
     return accumulator
 
 
+def greatest_common_factor(a: int, b: int) -> int:
+    """Gets the greatest common factor of two positive integers
+
+    Implementation uses the Euclidean Algorithm: the bigger number is
+    continuously divided (modulo) by the smaller number, until the smaller
+    number equals 0, and then the greater number will be the GCF.
+    """
+    # Source: https://www.geeksforgeeks.org/dsa/program-to-find-gcd-or-hcf-of-two-numbers/
+    # Approach 4 (Optimized Euclidean Algorithm by Checking Remainder) was used.
+    if a < 0 or b < 0:
+        raise ValueError("GCF function doesn't support negative numbers.")
+
+    while True:
+        a, b = b % a, a
+
+        if a == 0:
+            return b
+
+
 if __name__ == "__main__":
     # The script is being run directly
     pass
