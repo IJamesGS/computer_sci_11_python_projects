@@ -37,7 +37,7 @@ def generator_as_collection[T](generator: Callable[[], Generator[T]]):
 
 @generator_as_collection
 def fibonacci() -> Generator[int]:
-    """A representation of the Fibonacci sequence as a class."""
+    """A dynamic collection representing the Fibonacci sequence."""
     last_two_numbers: tuple[int, int] = (0, 1)
 
     yield last_two_numbers[0]
