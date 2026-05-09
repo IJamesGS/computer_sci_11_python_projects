@@ -14,7 +14,7 @@ Algorithms:
 
 
 class Fibonacci:
-    """Class that represents the fibbonacci sequence."""
+    """A representation of the Fibonacci sequence as a class."""
 
     def __init__(self) -> None:
         # See <https://docs.astral.sh/ruff/rules/mutable-class-default/>
