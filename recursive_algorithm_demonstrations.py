@@ -12,33 +12,40 @@ Algorithms:
 - Greatest common factor
 """
 
+from collections.abc import Callable, Generator
 
-class Fibonacci:
+
+def generator_as_collection[T](generator: Callable[[], Generator[T]]):
+    """Turn a generator into a collection."""
+
+    class Collection:
+        def __init__(self) -> None:
+            # See <https://docs.astral.sh/ruff/rules/mutable-class-default/>
+            # for information about why this was defined in the `__init__`
+            # function.
+            self._sequence: list[T] = []
+            self._generator: Generator[T] = generator()
+
+        def __getitem__(self, index: int | slice[int, int, int]) -> T | list[T]:
+            gen_up_to: int = index.stop if isinstance(index, slice) else index
+            while len(self._sequence) - 1 < gen_up_to:
+                self._sequence.append(next(self._generator))
+            return self._sequence[index]
+
+    return Collection()
+
+
+@generator_as_collection
+def fibonacci() -> Generator[int]:
     """A representation of the Fibonacci sequence as a class."""
+    last_two_numbers: tuple[int, int] = (0, 1)
 
-    def __init__(self) -> None:
-        # See <https://docs.astral.sh/ruff/rules/mutable-class-default/>
-        # for information about why this was defined in the `__init__`
-        # function.
-        self._sequence: list[int] = []
-        self._generator_instance: Generator[int] = self._generator()
+    yield last_two_numbers[0]
+    yield last_two_numbers[1]
 
-    @staticmethod
-    def _generator() -> Generator[int]:
-        last_two_numbers: tuple[int, int] = (0, 1)
-
-        yield last_two_numbers[0]
+    while True:
+        last_two_numbers = (last_two_numbers[1], sum(last_two_numbers))
         yield last_two_numbers[1]
-
-        while True:
-            last_two_numbers = (last_two_numbers[1], sum(last_two_numbers))
-            yield last_two_numbers[1]
-
-    def __getitem__(self, index: int | slice[int, int, int]) -> int | list[int]:
-        gen_up_to: int = index.stop if isinstance(index, slice) else index
-        while len(self._sequence) - 1 < gen_up_to:
-            self._sequence.append(next(self._generator_instance))
-        return self._sequence[index]
 
 
 def exponentiation(base: float, exponent: int) -> int:
