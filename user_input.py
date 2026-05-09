@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from typing import LiteralString
 
 
 def cast_input[T](
@@ -64,6 +65,7 @@ def cast_input_list[T](
     prompt: str,
     in_type: Callable[[str], T],
     num_val: int = -1,
+    sep: LiteralString | None = None,
     cancel_str: str = "cancel",
     additional_conditions: dict[str, Callable[[list[T]], bool]] | None = None,
     error_message: str = "Invalid entry! Try again!",
@@ -75,6 +77,11 @@ def cast_input_list[T](
         in_type: The type that the input should be cast to.
         num_val: The size that the list should be, or -1 for any size---
             which is the default.
+        sep: The separator used to split the string.
+
+            When set to None (the default value), will split on any whitespace
+            character (including \\n \\r \\t \\f and spaces) and will discard
+            empty strings from the result.
         cancel_str: If the user enters this string, it returns ``None``.
         additional_conditions: A dictionary with keys as error messages, and
             callables that take in the ``list[in_type]`` type and return
@@ -97,7 +104,7 @@ def cast_input_list[T](
                 return None
 
             # Split the input into a list, based on commas.
-            input_str_list: list[str] = input_str.split(",")
+            input_str_list: list[str] = input_str.split(sep)
 
             # Ensure the size of the list is correct, unless the ``num_val``
             # is negative.
