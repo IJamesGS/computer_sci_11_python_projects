@@ -55,6 +55,15 @@ def factorial(n: int) -> int:
     return accumulator
 
 
+def palindrome(a: str) -> bool:
+    """Check if a string reads the same forwards and backwards"""
+    for n in range(int(len(a)/2)):
+        if a[n] != a[len(a) - n - 1]:
+            return False
+
+    return True
+
+
 def greatest_common_factor(a: int, b: int) -> int:
     """Get the greatest common factor of two positive integers
 
@@ -99,6 +108,7 @@ if __name__ == "__main__":
                 5: Calculate an exponentiation problem.
                 6: Get the factorial of a number.
                 7: Calculate the GCF of two numbers.
+                8: Check if a string is a palindrome.
                 "exit" or Ctrl-C: Close the program.
         """)
         try:
@@ -106,7 +116,7 @@ if __name__ == "__main__":
                 "Which option?: ", int,
                 additional_conditions = {
                     "Number not within range, try again!":
-                        lambda val: val >= 1 and val <= 7
+                        lambda val: val >= 1 and val <= 8
                 },
             )
         except KeyboardInterrupt:
@@ -178,3 +188,13 @@ if __name__ == "__main__":
                 output: int = greatest_common_factor(num1, num2)
 
                 print(f"GCF: {output}")
+
+            case 8:
+                string: str = input("String: ")
+
+                is_palindrome: bool = palindrome(string)
+
+                if is_palindrome:
+                    print(f"{string} is a palindrome.")
+                else:
+                    print(f"{string} is not a palindrome.")
