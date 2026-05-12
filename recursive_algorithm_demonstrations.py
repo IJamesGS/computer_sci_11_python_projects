@@ -140,7 +140,7 @@ if __name__ == "__main__":
                 if isinstance(index, str):
                     index = variables[index]
 
-                output: list[int] = fibonacci[0:index]
+                output: list[int] = fibonacci[1:index+1]
 
                 print(f"Numbers: {output}")
 
