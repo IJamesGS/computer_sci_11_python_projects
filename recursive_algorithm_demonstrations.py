@@ -50,6 +50,12 @@ def fibonacci() -> Generator[int]:
 
 def exponentiation(base: float, exponent: int) -> float:
     """Get the result of `base` to the power of `exponent`."""
+    output: float = base
+
+    for _ in range(exponent):
+        output *= base
+
+    return output
 
 
 def factorial(n: int) -> int:
