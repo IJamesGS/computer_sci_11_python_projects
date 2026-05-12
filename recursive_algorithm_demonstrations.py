@@ -56,7 +56,7 @@ def factorial(n: int) -> int:
 
 
 def greatest_common_factor(a: int, b: int) -> int:
-    """Gets the greatest common factor of two positive integers
+    """Get the greatest common factor of two positive integers
 
     Implementation uses the Euclidean Algorithm: the bigger number is
     continuously divided (modulo) by the smaller number, until the smaller
