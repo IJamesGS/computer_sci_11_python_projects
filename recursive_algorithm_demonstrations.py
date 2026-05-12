@@ -12,7 +12,7 @@ Algorithms:
 - Greatest common factor
 """
 
-from collections.abc import Callable, Generator
+from collections.abc import Generator
 
 from custom_decorators import generator_as_collection
 
