@@ -14,25 +14,7 @@ Algorithms:
 
 from collections.abc import Callable, Generator
 
-
-def generator_as_collection[T](generator: Callable[[], Generator[T]]):
-    """Turn a generator into a collection."""
-
-    class Collection:
-        def __init__(self) -> None:
-            # See <https://docs.astral.sh/ruff/rules/mutable-class-default/>
-            # for information about why this was defined in the `__init__`
-            # function.
-            self._sequence: list[T] = []
-            self._generator: Generator[T] = generator()
-
-        def __getitem__(self, index: int | slice[int, int, int]) -> T | list[T]:
-            gen_up_to: int = index.stop if isinstance(index, slice) else index
-            while len(self._sequence) - 1 < gen_up_to:
-                self._sequence.append(next(self._generator))
-            return self._sequence[index]
-
-    return Collection()
+from custom_decorators import generator_as_collection
 
 
 @generator_as_collection
