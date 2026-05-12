@@ -48,7 +48,7 @@ def fibonacci() -> Generator[int]:
         yield last_two_numbers[1]
 
 
-def exponentiation(base: float, exponent: int) -> int:
+def exponentiation(base: float, exponent: int) -> float:
     """Get the result of `base` to the power of `exponent`."""
 
 
