@@ -153,7 +153,7 @@ if __name__ == "__main__":
                 if isinstance(exponent, str):
                     exponent = variables[exponent]
 
-                output: int = exponentiation(base, exponent)
+                output: float = exponentiation(base, exponent)
 
                 print(f"Result: {output}")
 
