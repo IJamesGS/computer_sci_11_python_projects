@@ -83,15 +83,17 @@ def greatest_common_factor(a: int, b: int) -> int:
             return b
 
 
-def int_or_str(x: str) -> int | str:
-    try:
-        return int(x)
-    except ValueError:
-        return x
-
-
 if __name__ == "__main__":
     variables: dict[str, int] = {}
+
+    def int_or_var(user_input: str) -> int:
+        try:
+            return int(user_input)
+        except ValueError:
+            if user_input in variables:
+                return variables[user_input]
+            else:
+                raise ValueError("Variable name does not exist.")
 
     while True:
         print("""
@@ -126,10 +128,7 @@ if __name__ == "__main__":
         match choice:
             case 1:
                 var_name: str = input("What variable should be set?: ")
-                var_val: int | str = cast_input("What value should it have?: ", int_or_str)
-
-                if isinstance(var_val, str):
-                    var_val = variables[var_val]
+                var_val: int | str = cast_input("What value should it have?: ", int_or_var)
 
                 variables[var_name] = var_val
 
@@ -137,53 +136,39 @@ if __name__ == "__main__":
                 for name, val in variables:
                     print(f"{name}: {val}")
             case 3:
-                index: int | str = cast_input("n: ", int_or_str)
-                if isinstance(index, str):
-                    index = variables[index]
+                index: int | str = cast_input("n: ", int_or_var)
 
                 output: int = fibonacci[index]
 
                 print(f"Fibonacci number: {output}")
 
             case 4:
-                index: int | str = cast_input("n: ", int)
-                if isinstance(index, str):
-                    index = variables[index]
+                index: int | str = cast_input("n: ", int_or_var)
 
                 output: list[int] = fibonacci[1:index+1]
 
                 print(f"Numbers: {output}")
 
             case 5:
-                base: int | str = cast_input("base: ", int_or_str)
-                if isinstance(base, str):
-                    base = variables[base]
+                base: int | str = cast_input("base: ", int_or_var)
 
-                exponent: int | str = cast_input("exponent: ", int_or_str)
-                if isinstance(exponent, str):
-                    exponent = variables[exponent]
+                exponent: int | str = cast_input("exponent: ", int_or_var)
 
                 output: float = exponentiation(base, exponent)
 
                 print(f"Result: {output}")
 
             case 6:
-                user_in: int | str = cast_input("n: ", int)
-                if isinstance(user_in, str):
-                    user_in = variables[user_in]
+                user_in: int | str = cast_input("n: ", int_or_var)
 
                 output: int = factorial(user_in)
 
                 print(f"Factorial: {output}")
 
             case 7:
-                num1: int | str = cast_input("base: ", int_or_str)
-                if isinstance(num1, str):
-                    num1 = variables[num1]
+                num1: int | str = cast_input("base: ", int_or_var)
 
-                num2: int | str = cast_input("exponent: ", int_or_str)
-                if isinstance(num2, str):
-                    num2 = variables[num2]
+                num2: int | str = cast_input("exponent: ", int_or_var)
 
                 output: int = greatest_common_factor(num1, num2)
 
