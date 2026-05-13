@@ -130,7 +130,11 @@ if __name__ == "__main__":
                 """)
             case 1:
                 var_name: str = input("What variable should be set?: ")
-                var_val: int | str = cast_input("What value should it have?: ", int_or_var)
+                try:
+                    var_val: int | str = cast_input("What value should it have?: ", int_or_var)
+                except KeyboardInterrupt:
+                    print("Cancelled operation.")
+                    continue
 
                 variables[var_name] = var_val
 
@@ -138,21 +142,33 @@ if __name__ == "__main__":
                 for name, val in variables:
                     print(f"{name}: {val}")
             case 3:
-                index: int | str = cast_input("n: ", int_or_var)
+                try: 
+                    index: int | str = cast_input("n: ", int_or_var)
+                except KeyboardInterrupt:
+                    print("Cancelled operation.")
+                    continue
 
                 output: int = fibonacci[index]
 
                 print(f"Fibonacci number: {output}")
 
             case 4:
-                index: int | str = cast_input("n: ", int_or_var)
+                try:
+                    index: int | str = cast_input("n: ", int_or_var)
+                except KeyboardInterrupt:
+                    print("Cancelled operation.")
+                    continue 
 
                 output: list[int] = fibonacci[1:index+1]
 
                 print(f"Numbers: {output}")
 
             case 5:
-                base: int | str = cast_input("base: ", int_or_var)
+                try:
+                    base: int | str = cast_input("base: ", int_or_var)
+                except KeyboardInterrupt:
+                    print("Cancelled operation.")
+                    continue 
 
                 exponent: int | str = cast_input("exponent: ", int_or_var)
 
@@ -161,23 +177,34 @@ if __name__ == "__main__":
                 print(f"Result: {output}")
 
             case 6:
-                user_in: int | str = cast_input("n: ", int_or_var)
+                try:
+                    user_in: int | str = cast_input("n: ", int_or_var)
+                except KeyboardInterrupt:
+                    print("Cancelled operation.")
+                    continue 
 
                 output: int = factorial(user_in)
 
                 print(f"Factorial: {output}")
 
             case 7:
-                num1: int | str = cast_input("base: ", int_or_var)
-
-                num2: int | str = cast_input("exponent: ", int_or_var)
+                try:
+                    num1: int | str = cast_input("base: ", int_or_var)
+                    num2: int | str = cast_input("exponent: ", int_or_var)
+                except KeyboardInterrupt:
+                    print("Cancelled operation.")
+                    continue
 
                 output: int = greatest_common_factor(num1, num2)
 
                 print(f"GCF: {output}")
 
             case 8:
-                string: str = input("String: ")
+                try:
+                    string: str = input("String: ")
+                except KeyboardInterrupt:
+                    print("Cancelled operation.")
+                    continue
 
                 is_palindrome: bool = palindrome(string)
 
