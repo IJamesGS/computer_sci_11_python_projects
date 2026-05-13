@@ -102,7 +102,7 @@ if __name__ == "__main__":
                 "Which option?: ", int,
                 additional_conditions = {
                     "Number not within range, try again!":
-                        lambda val: val >= 1 and val <= 8
+                        lambda val: val >= 0 and val <= 8
                 },
             )
         except KeyboardInterrupt:
