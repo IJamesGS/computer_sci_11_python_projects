@@ -14,6 +14,7 @@ Algorithms:
 
 import sys
 from collections.abc import Generator
+from functools import lru_cache
 
 from custom_decorators import generator_as_collection
 from user_input import cast_input
@@ -64,6 +65,24 @@ def palindrome(a: str) -> bool:
     return True
 
 
+@lru_cache
+def combination(deck_size: int, hand_size: int) -> int:
+    """Get number of possible hands from a deck."""
+    # Return 0 (no possible hands) in nonsensical cases.
+    if hand_size > deck_size or hand_size < 0:
+        return 0
+
+    # If the hand is empty, or the hand is the whole deck, there is
+    # only one possible hand (an empty hand or the whole deck)
+    if hand_size == 0 or deck_size == hand_size:
+        return 1
+
+    return (
+        combination(deck_size-1, hand_size-1)
+        + combination(deck_size-1, hand_size)
+    )
+
+
 def greatest_common_factor(a: int, b: int) -> int:
     """Get the greatest common factor of two positive integers
 
@@ -102,7 +121,7 @@ if __name__ == "__main__":
                 "Which option?: ", int,
                 additional_conditions = {
                     "Number not within range, try again!":
-                        lambda val: val >= 0 and val <= 8
+                        lambda val: val >= 0 and val <= 9
                 },
             )
         except KeyboardInterrupt:
@@ -127,6 +146,7 @@ if __name__ == "__main__":
                         6: Get the factorial of a number.
                         7: Calculate the GCF of two numbers.
                         8: Check if a string is a palindrome.
+                        9: Get number of possible hands from a deck.
                         "exit" or Ctrl-C: Close the program.
                 """)
             case 1:
@@ -213,3 +233,19 @@ if __name__ == "__main__":
                     print(f"{string} is a palindrome.")
                 else:
                     print(f"{string} is not a palindrome.")
+
+            case 9:
+                try:
+                    num1: int | str = cast_input("Length of deck: ", int_or_var)
+                    num2: int | str = cast_input("Number of cards in hand: ", int_or_var)
+                except KeyboardInterrupt:
+                    print("Cancelled operation.")
+                    continue
+
+                try:
+                    output = combination(num1, num2)
+                except RecursionError:
+                    print("Error: Maximum recursion depth exceeded!")
+                    continue
+
+                print(f"Combinations: {output}")
