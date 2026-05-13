@@ -96,23 +96,7 @@ if __name__ == "__main__":
                 raise ValueError("Variable name does not exist.")
 
     while True:
-        print("""
-            What would you like to do?
-
-            FYI, wherever you can enter a literal number, you can enter
-            a variable name.
-
-            Options:
-                1: Set a variable.
-                2: List variables.
-                3: Get the nth number the fibonacci sequence.
-                4: Get the first n numbers in the fibonacci sequence.
-                5: Calculate an exponentiation problem.
-                6: Get the factorial of a number.
-                7: Calculate the GCF of two numbers.
-                8: Check if a string is a palindrome.
-                "exit" or Ctrl-C: Close the program.
-        """)
+        print("What would you like to do? (0 for help)")
         try:
             choice: int = cast_input(
                 "Which option?: ", int,
@@ -126,6 +110,24 @@ if __name__ == "__main__":
             sys.exit()
 
         match choice:
+            case 0:
+                print("""
+                    HELP:
+
+                    - Wherever you can enter a literal number, you can enter
+                    a variable name.
+
+                    Options:
+                        1: Set a variable.
+                        2: List variables.
+                        3: Get the nth number the fibonacci sequence.
+                        4: Get the first n numbers in the fibonacci sequence.
+                        5: Calculate an exponentiation problem.
+                        6: Get the factorial of a number.
+                        7: Calculate the GCF of two numbers.
+                        8: Check if a string is a palindrome.
+                        "exit" or Ctrl-C: Close the program.
+                """)
             case 1:
                 var_name: str = input("What variable should be set?: ")
                 var_val: int | str = cast_input("What value should it have?: ", int_or_var)
