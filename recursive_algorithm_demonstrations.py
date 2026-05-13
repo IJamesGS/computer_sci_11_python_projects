@@ -118,6 +118,7 @@ if __name__ == "__main__":
                     a variable name.
 
                     Options:
+                        0: Show this dialogue.
                         1: Set a variable.
                         2: List variables.
                         3: Get the nth number the fibonacci sequence.
