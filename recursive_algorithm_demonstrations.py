@@ -163,7 +163,7 @@ if __name__ == "__main__":
                 for name, val in variables:
                     print(f"{name}: {val}")
             case 3:
-                try: 
+                try:
                     index: int | str = cast_input("n: ", int_or_var)
                 except KeyboardInterrupt:
                     print("Cancelled operation.")
@@ -178,7 +178,7 @@ if __name__ == "__main__":
                     index: int | str = cast_input("n: ", int_or_var)
                 except KeyboardInterrupt:
                     print("Cancelled operation.")
-                    continue 
+                    continue
 
                 output: list[int] = fibonacci[1:index+1]
 
@@ -189,7 +189,7 @@ if __name__ == "__main__":
                     base: int | str = cast_input("base: ", int_or_var)
                 except KeyboardInterrupt:
                     print("Cancelled operation.")
-                    continue 
+                    continue
 
                 exponent: int | str = cast_input("exponent: ", int_or_var)
 
@@ -202,7 +202,7 @@ if __name__ == "__main__":
                     user_in: int | str = cast_input("n: ", int_or_var)
                 except KeyboardInterrupt:
                     print("Cancelled operation.")
-                    continue 
+                    continue
 
                 output: int = factorial(user_in)
 
