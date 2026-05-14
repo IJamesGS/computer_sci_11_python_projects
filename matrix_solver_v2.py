@@ -12,7 +12,7 @@ M: type = list[list[float]]
 
 def print_matrix(matrix):
     """Display matrix in shell"""
-    for _ in matrix:
+    for row in matrix:
         for value in row:
             print(str(value), end=' ')
         print()
