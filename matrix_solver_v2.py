@@ -10,30 +10,31 @@ same dimensions in reduced-row echelon form
 
 # function to help display the matrixices better in the shell
 def print_matrix(matrix):
-    
-    for row in matrix:
+    """Display matrix in shell"""
+    for _ in matrix:
         for value in row:
             print(str(value), end=' ')
         print()
-    
-# fuction to input a matrix through the shell and store as a variable
+
+
 def input_matrix():
-    matrix: list[list[float]] = list()
-    columns = int(input('# of columns in matrix: \n'))
-    rows = int(input('# of rows in matrix: \n'))
+    """Input matrix via shell"""
+    in_matrix: M = list()
+    columns: int = int(input('# of columns in matrix: \n'))
+    rows: int = int(input('# of rows in matrix: \n'))
     
     # check if the inputed dimensions are a valid matrix
     if rows < 1 or columns < 2:
-        return "error"
+        raise TypeError("Not a valid matrix")
     
     # get values for each entry in matrix
     for row in range(rows):
-        matrix.append([])
+        in_matrix.append([])
         for column in range(columns):
-            value = int(input("Enter value for row " + str(row) + " column " + str(column) + ': \n'))
-            matrix[row].append(value)
+            value: int = int(input("Enter value for row " + str(row) + " column " + str(column) + ': \n'))
+            in_matrix[row].append(value)
             
-    return matrix
+    return in_matrix
 
 def swap_rows(matrix, row1, row2): 
     """Swap two rows with one another"""
@@ -49,18 +50,23 @@ def swap_rows(matrix, row1, row2):
 
 # multiply rows in a matrix such that row1 * factor -> row1
 def multiply_row(matrix, row, factor):
-    for n in range(len(matrix[row])):
-        matrix[row][n] = matrix[row][n] * factor
+    """Multiply matrix row by a factor"""
+    in_matrix = matrix
+    for n in range(len(in_matrix[row])):
+        in_matrix[row][n] = in_matrix[row][n] * factor
     
-    return matrix
+    return in_matrix
 
 # add rows in a matrix such that row1 + coeff*row2 -> row1
 def add_rows(matrix, row1, row2, coeff): 
-    for n in range(len(matrix[row1])):
-        applied_row2 = matrix[row2][n] * coeff
-        matrix[row1][n] = matrix[row1][n] + applied_row2
+    """Add two rows in a matrix"""
+    in_matrix = matrix
+    for n in range(len(in_matrix[row1])):
+        applied_row2 = in_matrix[row2][n] * coeff
+        in_matrix[row1][n] = in_matrix[row1][n] + applied_row2
     
-    return matrix
+    return in_matrix
+
 
 # gaussian elimination algorithm
 def elimination(matrix, pvt=0):
@@ -164,23 +170,25 @@ def elimination(matrix, pvt=0):
 
 # fuction to determine the number of solutions in a matrix
 def find_soln(matrix, pivots):
-    zero_row_minus1 = [0]*(len(matrix[0]) - 1)
+    in_matrix = matrix
+    
+    zero_row_minus1 = [0]*(len(in_matrix[0]) - 1)
     
     #if there are no pivots, must be a zero matrix and therefor no solutions
     if pivots == 0:
         return 0
     
     # check if the system is inconsistant first
-    for row in range(len(matrix)):
+    for row in range(len(in_matrix)):
         
         # if inconsistant, 0 solutions
-        if matrix[row][0:len(matrix[0]) - 1] == zero_row_minus1 and matrix[row][len(matrix[0]) - 1] != 0:
+        if in_matrix[row][0:len(in_matrix[0]) - 1] == zero_row_minus1 and in_matrix[row][len(in_matrix[0]) - 1] != 0:
             solution = 0
         
         # if not inconsistant, must be consistant (duh!)
         else:
             # check if each variable has a leading 1
-            if len(pivots) == len(matrix[0]) - 1:
+            if len(pivots) == len(in_matrix[0]) - 1:
                 solution = 1
             
             # if not 1 solution and consistant, MUST be infinite solutions
