@@ -196,7 +196,7 @@ def find_soln(matrix, pivots):
             
     return solution
 
-def execute():
+def main():
     go = True
     while go:
         old_matrix = input_matrix()
@@ -259,3 +259,5 @@ def create_matrix_list(min_value, max_value, max_columns, max_rows):
 
     return matrix_list
 
+if __name__ == "__main__":
+    main()
