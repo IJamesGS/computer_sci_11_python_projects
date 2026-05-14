@@ -10,6 +10,7 @@ same dimensions in reduced-row echelon form
 
 # function to help display the matrixices better in the shell
 def print_matrix(matrix):
+    
     for row in matrix:
         for value in row:
             print(str(value), end=' ')
@@ -34,20 +35,17 @@ def input_matrix():
             
     return matrix
 
-# swap row1 and row2 with one another in a matrix
 def swap_rows(matrix, row1, row2): 
-    r1 = matrix[row1].copy()
-    r1copy = r1
-    r2 = matrix[row2].copy()
-    r2copy = r2
-    r1 = r2copy
-    r2 = r1copy
-    matrix.insert(row1, r1)
-    matrix.pop(row1 + 1)
-    matrix.insert(row2, r2)
-    matrix.pop(row2 + 1)
-    return matrix
-
+    """Swap two rows with one another"""
+    in_matrix = matrix
+    r1 = in_matrix[row1].copy()
+    r2 = in_matrix[row2].copy()
+    r1, r2 = r2, r1
+    in_matrix.insert(row1, r1)
+    in_matrix.pop(row1 + 1)
+    in_matrix.insert(row2, r2)
+    in_matrix.pop(row2 + 1)
+    return in_matrix
 
 # multiply rows in a matrix such that row1 * factor -> row1
 def multiply_row(matrix, row, factor):
