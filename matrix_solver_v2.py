@@ -7,8 +7,9 @@ Program with functions to:
 same dimensions in reduced-row echelon form
 -output the nature of the solution to a matrix
 '''
+#define types
+M: type = list[list[float]]
 
-# function to help display the matrixices better in the shell
 def print_matrix(matrix):
     """Display matrix in shell"""
     for _ in matrix:
@@ -48,7 +49,6 @@ def swap_rows(matrix, row1, row2):
     in_matrix.pop(row2 + 1)
     return in_matrix
 
-# multiply rows in a matrix such that row1 * factor -> row1
 def multiply_row(matrix, row, factor):
     """Multiply matrix row by a factor"""
     in_matrix = matrix
@@ -57,7 +57,6 @@ def multiply_row(matrix, row, factor):
     
     return in_matrix
 
-# add rows in a matrix such that row1 + coeff*row2 -> row1
 def add_rows(matrix, row1, row2, coeff): 
     """Add two rows in a matrix"""
     in_matrix = matrix
@@ -68,29 +67,29 @@ def add_rows(matrix, row1, row2, coeff):
     return in_matrix
 
 
-# gaussian elimination algorithm
 def elimination(matrix, pvt=0):
+    """Gaussian Elimination"""
     # to break nested loops
     good = True
-    
+    in_matrix = matrix
     # list of pivot positions aka where leading entries are in the matrix, and later the positions of leading 1s
     # each pivot is a list such that [x, y], with [0, 0] being the first row and first column in a matrix
-    pivots = []
+    pivots: list[list[int]] = []
     # correcting the algorithm based on the dimensions of the matrix
-    if len(matrix) == len(matrix[0]) - 1:
+    if len(in_matrix) == len(in_matrix[0]) - 1:
         correction = -1
         
-    elif len(matrix) > len(matrix[0]) - 1:
-        correction = len(matrix) - len(matrix[0])
+    elif len(in_matrix) > len(in_matrix[0]) - 1:
+        correction = len(in_matrix) - len(in_matrix[0])
     
-    elif len(matrix) < len(matrix[0]) - 1:
-        correction = len(matrix) - len(matrix[0])
+    elif len(in_matrix) < len(in_matrix[0]) - 1:
+        correction = len(in_matrix) - len(in_matrix[0])
     
     # step 1 - find first pivot position and place it in first row
-    for column in range(len(matrix[0])): 
-        for row in range(len(matrix)):
-            if matrix[row][column] != 0 and good:
-                swap_rows(matrix, 0, row)
+    for column in range(len(in_matrix[0])): 
+        for row in range(len(in_matrix)):
+            if in_matrix[row][column] != 0 and good:
+                in_matrix = swap_rows(in_matrix, 0, row)
                 pivot = [column, 0]
                 pivots.append(pivot)
                 good = False # essentially breaks the nested loop early or else bad things happen
@@ -98,27 +97,27 @@ def elimination(matrix, pvt=0):
     # if there are no valid pivot positions, must be a zero matrix w/ no solutions
     if len(pivots) == 0:
         if pvt == 0:
-            return matrix, 0
+            return in_matrix, 0
         else:
-            return matrix
+            return in_matrix
     
     good = True
     
     # step 2 - make all entries under pivot position equal to zero through addition
-    for row in range(len(matrix[0]) + correction): 
-        if matrix[row][pivot[0]] != 0 and row > pivot[1]:
-            add_rows(matrix, row, pivot[1], -(matrix[row][pivot[0]]/matrix[pivot[1]][pivot[0]]))
+    for row in range(len(in_matrix[0]) + correction): 
+        if in_matrix[row][pivot[0]] != 0 and row > pivot[1]:
+            in_matrix = add_rows(in_matrix, row, pivot[1], -(in_matrix[row][pivot[0]]/ in_matrix[pivot[1]][pivot[0]]))
     
     # step 3 - repeat steps 1 and 2 using the position of first pivot to find the remaining pivots
-    for _ in range(len(matrix) + 1):
+    for _ in range(len(in_matrix) + 1):
         # step 3.1 - find pivot and correctly place
         
         good = True
-        for row in range(len(matrix)):    
-            for column in range(len(matrix[0]) - 1):   
-                if row > pivot[1] and column > pivot[0] and row < len(matrix) and good:    
-                    if matrix[column][row] != 0:
-                        swap_rows(matrix, row, pivot[1] + 1)
+        for row in range(len(in_matrix)):    
+            for column in range(len(in_matrix[0]) - 1):   
+                if row > pivot[1] and column > pivot[0] and row < len(in_matrix) and good:    
+                    if in_matrix[column][row] != 0:
+                        in_matrix = swap_rows(in_matrix, row, pivot[1] + 1)
                         good = False
                         previous_pivot = pivot
                         pivot = [column, previous_pivot[1] + 1]
@@ -129,44 +128,44 @@ def elimination(matrix, pvt=0):
         
         
         # step 3.2 - make all entries under pivot position equal to zero through addition
-        for row in range(len(matrix[0]) + correction): 
-            if matrix[row][pivot[0]] != 0 and row > pivot[1]:
-                add_rows(matrix, row, pivot[1], -(matrix[row][pivot[0]]/matrix[pivot[1]][pivot[0]]))
+        for row in range(len(in_matrix[0]) + correction): 
+            if in_matrix[row][pivot[0]] != 0 and row > pivot[1]:
+                in_matrix = add_rows(in_matrix, row, pivot[1], -(in_matrix[row][pivot[0]] / in_matrix[pivot[1]][pivot[0]]))
         
-        if len(pivots) == len(matrix[0]):
+        if len(pivots) == len(in_matrix[0]):
             break
 
     # step 4 - turn each leading entry to 1
     for n in range(len(pivots)):
-        if matrix[pivots[n][0]][pivots[n][1]] != 1:
-            multiply_row(matrix, pivots[n][1], (1 / matrix[pivots[n][0]][pivots[n][1]]))
+        if in_matrix[pivots[n][0]][pivots[n][1]] != 1:
+            in_matrix = multiply_row(matrix, pivots[n][1], (1 / matrix[pivots[n][0]][pivots[n][1]]))
             
     # step 5 - create zeros in entries above pivots
     for n in range(len(pivots)):
-        for row in range(len(matrix)):
-            if matrix[row][pivots[n][0]] != 0 and row < pivots[n][1]:
-                add_rows(matrix, row, pivots[n][0], -(matrix[row][pivots[n][0]]))      
+        for row in range(len(in_matrix)):
+            if in_matrix[row][pivots[n][0]] != 0 and row < pivots[n][1]:
+                in_matrix = add_rows(in_matrix, row, pivots[n][0], -(in_matrix[row][pivots[n][0]]))      
         
     # create leading entry = 1 if the only none-zero value in a row is in the last column, then make it the last row
     # unneccesary step for asthetics, can be removed if desired
-    zero_row_minus1 = [0]*(len(matrix[0]) - 1)
-    for row in range(len(matrix)):
-        if matrix[row][0:len(matrix[0]) - 1] == zero_row_minus1 and matrix[row][len(matrix[0]) - 1] != 0:
-            multiply_row(matrix, row, (1 / matrix[row][len(matrix[0]) - 1]))
-            new_row = matrix[row]
-            matrix.pop(row)
-            matrix.append(new_row)
+    zero_row_minus1 = [0]*(len(in_matrix[0]) - 1)
+    for row in range(len(in_matrix)):
+        if in_matrix[row][0:len(in_matrix[0]) - 1] == zero_row_minus1 and in_matrix[row][len(in_matrix[0]) - 1] != 0:
+            in_matrix = multiply_row(in_matrix, row, (1 / in_matrix[row][len(in_matrix[0]) - 1]))
+            new_row = in_matrix[row]
+            in_matrix.pop(row)
+            in_matrix.append(new_row)
             
     # go through all the values & clean them up (remove the floating-point errors)
-    for row in range(len(matrix)):
-        for n in range(len(matrix[0])):
-            matrix[row][n] = round(matrix[row][n], 13)
+    for row in range(len(in_matrix)):
+        for n in range(len(in_matrix[0])):
+            in_matrix[row][n] = round(in_matrix[row][n], 13)
     
     # all done (:
     if pvt == 0:
-        return matrix, pivots
+        return in_matrix, pivots
     else:
-        return matrix
+        return in_matrix
 
 # fuction to determine the number of solutions in a matrix
 def find_soln(matrix, pivots):
