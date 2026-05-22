@@ -220,7 +220,7 @@ def main():
             print('error, need at least a 2x2 matrix')
             
         cont = input("\ninput any key & hit enter to stop\n")
-        if cont != None:
+        if cont != "":
             go = False
 
 # function for unit testing via pytest
@@ -232,7 +232,6 @@ def solve(matrix):
 # function to create a list of matricies with every combination of the following values:
 def create_matrix_list(min_value, max_value, max_columns, max_rows):
     matrix_list: list[list[list[float]]] = []
-    matrix: list[list[float]] = []
     if max_value < min_value:
         print('error: max_value < min_value')
         return
