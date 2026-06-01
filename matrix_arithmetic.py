@@ -3,6 +3,7 @@ from matrix_solver_v2 import elimination
 Matrix: type = list[list[float]]
 Vector: type = list[float]
 
+
 def get_dimensions(matrix: Matrix):
     """Get the number of rows and columns in a matrix."""
     rows = len(matrix)
@@ -10,7 +11,7 @@ def get_dimensions(matrix: Matrix):
     return rows, cols
 
 
-def same_dimensions(A: Matrix, B:Matrix) -> bool:
+def same_dimensions(A: Matrix, B: Matrix) -> bool:
     """Check if two matrices have the same number of columns and rows."""
     rows_A, cols_A = get_dimensions(A)
     rows_B, cols_B = get_dimensions(B)
@@ -23,7 +24,7 @@ def add_matricies(A: Matrix, B: Matrix, Acoeff=1, Bcoeff=1) -> Matrix:
     output: Matrix = []
 
     # check if the matrices have the same dimensions
-    if same_dimensions(A, B) == False:
+    if not same_dimensions(A, B):
         raise ValueError("Matrices have mismatched dimensions.")
 
     rows, cols = get_dimensions(A)
@@ -46,9 +47,7 @@ def add_matricies(A: Matrix, B: Matrix, Acoeff=1, Bcoeff=1) -> Matrix:
     return output
 
 
-def get_row_vectors(
-    in_matrix: Matrix
-) -> list[Vector]:
+def get_row_vectors(in_matrix: Matrix) -> list[Vector]:
     """Get a list of the row and/or column vectors of the matrix."""
     output = []
 
@@ -58,11 +57,9 @@ def get_row_vectors(
     return output
 
 
-def get_column_vectors(
-    in_matrix: Matrix
-) -> list[Vector]:
+def get_column_vectors(in_matrix: Matrix) -> list[Vector]:
     output = []
-    
+
     for col in range(len(in_matrix[0])):
         temp_col_vect = []
         for row in range(len(in_matrix)):
@@ -115,7 +112,7 @@ def augment_matricies(A: Matrix, B: Matrix) -> Matrix:
     return output
 
 
-def solve_XA_to_B(A: Matrix, B :Matrix) -> Matrix:
+def solve_XA_to_B(A: Matrix, B: Matrix) -> Matrix:
     """Get the X matrix which solves the equation X*A = B."""
     X: Matrix = []
 
@@ -162,6 +159,7 @@ def create_identity(size: int) -> Matrix:
                 output[row].append(0)
 
     return output
+
 
 def matrix_inverse(in_matrix: Matrix) -> Matrix:
     """Get the inverse of a matrix"""
@@ -214,7 +212,9 @@ def determinate_2_and_small(in_matrix: Matrix) -> float:
         d = in_matrix[0][0]
 
     elif num_rows == 2:
-        d = ((in_matrix[0][0]) * (in_matrix[1][1])) - ((in_matrix[0][1]) * (in_matrix[1][0]))
+        d = ((in_matrix[0][0]) * (in_matrix[1][1])) - (
+            (in_matrix[0][1]) * (in_matrix[1][0])
+        )
 
     return d
 
