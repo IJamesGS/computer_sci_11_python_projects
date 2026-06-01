@@ -14,6 +14,7 @@ animal_colors = {
     "AABB": "Peach",
     "ABAA": "Orange",
     "ABAB": "Lemon",
+    "ABBA": "Brown",
     "ABBB": "Yellow",
     "BAAA": "Lime",
     "BAAB": "Green",
@@ -21,6 +22,7 @@ animal_colors = {
     "BABB": "Blue",
     "BBAA": "Indigo",
     "BBAB": "Purple",
+    "BBBA": "Violet",
     "BBBB": "Black",
 }
 
@@ -34,24 +36,6 @@ class Animal:
         self.looking = looking
         self.genetics = genetics
 
-    def set_looking(self, look: bool) -> None | bool:
-        old_looking = self.looking
-        self.looking = look
-        return old_looking
-
-    def multiply(self, other):
-        new_genetics = ""
-
-        for i in range(len(self.genetics)):
-            inheritance = random.randint(1, 2)
-            if inheritance == 1:
-                new_genetics += self.genetics[i]
-            else:
-                new_genetics += other.genetics[i]
-
-        return Animal(False, new_genetics)
-
-    def read_genetics(self):
         type_gene = ""
         color_gene = ""
         height_gene = ""
@@ -75,6 +59,30 @@ class Animal:
         self.height = animal_heights[height_gene]
         self.weight = animal_weights[weight_gene]
 
+    def set_looking(self, look: bool) -> None | bool:
+        old_looking = self.looking
+        self.looking = look
+        return old_looking
+
+    def multiply(self, other):
+        new_genetics = ""
+
+        for i in range(len(self.genetics)):
+            inheritance = random.randint(1, 11)
+            if inheritance <= 5:
+                new_genetics += self.genetics[i]
+            elif inheritance <= 10:
+                new_genetics += other.genetics[i]
+            elif inheritance == 11:
+                mutation = random.randint(1, 2)
+                if mutation == 1:
+                    new_genetics += "A"
+
+                elif mutation == 2:
+                    new_genetics += "B"
+
+        return Animal(False, new_genetics)
+
 
 if __name__ == "__main__":
     import time
@@ -85,30 +93,41 @@ if __name__ == "__main__":
     animals: list[Animal] = []
 
     sim_length = float(input("Enter run time (seconds): "))
+
+    animals.append(Animal(True, "AAAAAAAAAA"))
+    animals.append(Animal(True, "BBBBBBBBBB"))
+
     start_time = time.time()
     cycle = 0
-
     while True:
         cycle += 1
         print(f"cycle: {cycle}")
+
         extra_time = (last_tick + tick_time) - time.time()
+
         if extra_time > 0:
             time.sleep(extra_time)
         last_tick = time.time()
 
         if time.time() > start_time + sim_length:
-            break
+            for i, animal in enumerate(animals):
+                print(f"Animal #{i}, Genetics: {animal.genetics}")
+            raise SystemExit
+
+        lucky_guy = random.choice(animals)
+        lucky_guy.set_looking(True)
 
         for i, animal in enumerate(animals):
-            rand_val = random.randint(1, 99)
-            if rand_val > 80:
-                animal.set_looking(True)
+            if animal.looking:
                 for j, other in enumerate(animals):
-                    if other.looking:
+                    if other.looking and i != j:
+                        animal.set_looking(False)
+                        other.set_looking(False)
                         new_animal = animal.multiply(other)
-                        new_animal.read_genetics()
+                        print(f"new genes: {new_animal.genetics}")
                         animals.append(new_animal)
-                        print(animals)
+                        break
 
-            if rand_val == 1:
+            rand_val = random.randint(1, 99)
+            if rand_val == 17:
                 del animal
