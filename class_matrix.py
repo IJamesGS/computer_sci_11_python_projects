@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import random
 
-M = list[list[float]]
+type M = list[list[float]]
 
 
 class Matrix:

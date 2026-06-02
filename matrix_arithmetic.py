@@ -1,7 +1,7 @@
 from matrix_solver_v2 import elimination
 
-Matrix = list[list[float]]
-Vector = list[float]
+type Matrix = list[list[float]]
+type Vector = list[float]
 
 
 def get_dimensions(matrix: Matrix):
