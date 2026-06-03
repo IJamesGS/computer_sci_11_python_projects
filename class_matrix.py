@@ -150,5 +150,42 @@ class Matrix:
         self.matrix = elimination(self.matrix, False)
         self._update_properties()
 
-    def inverse(self):
-        pass
+    def reverse_multiplication(self, other: Matrix) -> None:
+        """
+
+        .. math::
+            AX=B
+        """
+
+        in_matrix: M = []
+
+        cols_self = self.cols - 1
+        self.augment_matrix(other)
+        self.gaussian()
+        self._update_properties()
+        for row in range(self.rows):
+            in_matrix.append([])
+            for column in range(self.cols):
+                if column > cols_self:
+                    in_matrix[row].append(self.matrix[row][column])
+
+        self.matrix = in_matrix
+        self._update_properties()
+
+    def inverse(self) -> None:
+        if self.rows != self.cols:
+            raise ValueError("Matrix must be square to take inverse")
+
+        og_matrix = Matrix(self.matrix)
+        identity = self.create_identity(self.rows)
+        self.reverse_multiplication(identity)
+        inverse = self.matrix
+
+        self.mult_matrix(og_matrix)
+
+        if self.matrix != identity.matrix:
+            raise ValueError("Matrix does not have an inverse")
+
+        else:
+            self.matrix = inverse
+            self._update_properties()
