@@ -80,7 +80,7 @@ def add_rows(matrix, row1, row2, coeff):
     return in_matrix
 
 
-def elimination(matrix, pvt=0):
+def elimination(matrix, pvt=True):
     """Gaussian Elimination"""
     # to break nested loops
     good = True

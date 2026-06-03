@@ -119,7 +119,7 @@ def solve_XA_to_B(A: Matrix, B: Matrix) -> Matrix:
     cols_A = len(A[0]) - 1
     AB = augment_matricies(A, B)
     # runs the augmented matrix through Gaussian Elimination
-    new_AB = elimination(AB, "nopivots")
+    new_AB = elimination(AB, False)
     # new_AB is now in the form [I|X]
     # "unaugments" the matrix to acquire X
     for row in range(len(new_AB)):

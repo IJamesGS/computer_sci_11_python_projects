@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import random
 
+from matrix_solver_v2 import elimination
+
 type M = list[list[float]]
 
 
@@ -24,11 +26,12 @@ class Matrix:
         if self.rows == self.cols:
             self.square = True
 
-        else: 
+        else:
             self.square = False
 
     @staticmethod
     def create_random_matrix(cols, rows, cell_min, cell_max) -> Matrix:
+
         in_matrix: M = []
 
         for n in range(rows):
@@ -121,19 +124,16 @@ class Matrix:
             in_matrix.append([])
             for row in range(self.rows):
                 in_matrix[col].append(self.matrix[row][col])
-                
-                
 
         self.matrix = in_matrix
         self._update_properties()
 
-    
     def augment_matrix(self, other: Matrix) -> None:
         if self.rows != other.rows:
             raise ValueError("Cannot augment matrices with mismatching number of rows")
 
         in_matrix: M = []
-     
+
         for self_rows in range(self.rows):
             in_matrix.append([])
             for self_cols in range(self.cols):
@@ -145,3 +145,10 @@ class Matrix:
 
         self.matrix = in_matrix
         self._update_properties()
+
+    def gaussian(self):
+        self.matrix = elimination(self.matrix, False)
+        self._update_properties()
+
+    def inverse(self):
+        pass
