@@ -129,5 +129,5 @@ if __name__ == "__main__":
                         break
 
             rand_val = random.randint(1, 99)
-            if rand_val == 17:
+            if rand_val >= 92:
                 del animal
