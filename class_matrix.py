@@ -78,8 +78,8 @@ class Matrix:
     # ---- Public Methods ----
 
     def add_matrix(self, other: Matrix, coeff=1) -> None:
-        if not self:
-            raise TypeError("Matrices need to be the same dimensions")
+        if other.rows != self.rows or other.cols != self.cols:
+            raise ValueError("Matrices need to be the same dimensions")
 
         for row in range(self.rows):
             for col in range(self.cols):
@@ -189,3 +189,7 @@ class Matrix:
         else:
             self.matrix = inverse
             self._update_properties()
+
+
+if __name__ == "__main__":
+    pass
