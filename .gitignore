@@ -1,3 +1,4 @@
 .devenv
 .zed
 __pycache__
+.venv
