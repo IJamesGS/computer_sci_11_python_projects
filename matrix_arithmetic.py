@@ -236,3 +236,61 @@ def mult_vector(in_matrix: Matrix, b: Vector) -> Vector:
         output.append(val)
 
     return output
+
+
+if __name__ == "__main__":
+    while True:
+        prg_inp = str(
+            input("""select a program out of the following:
+            1 - add_matricies
+            2 - multiply_matricies
+            3 - augment_matricies
+            4 - solve_XA_to_B
+            5 - matrix_inverse
+            6 - trace
+            7 - determinate_2_and_small
+            8 - test_same_dimensions
+            9 -
+            exit program by hitting enter after pressing no keys
+            """)
+        )
+
+        if prg_inp == "":
+            while True:
+                pass
+
+        elif prg_inp == "1":
+            while True:
+                pass
+
+        elif prg_inp == "2":
+            while True:
+                pass
+
+        elif prg_inp == "3":
+            while True:
+                pass
+
+        elif prg_inp == "4":
+            while True:
+                pass
+
+        elif prg_inp == "5":
+            while True:
+                pass
+
+        elif prg_inp == "6":
+            while True:
+                pass
+
+        elif prg_inp == "7":
+            while True:
+                pass
+
+        elif prg_inp == "8":
+            while True:
+                pass
+
+        elif prg_inp == "9":
+            while True:
+                pass
