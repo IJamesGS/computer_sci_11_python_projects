@@ -20,7 +20,7 @@ def print_matrix(matrix):
         print()
 
 
-def input_matrix():
+def input_matrix() -> M:
     """Input matrix via shell"""
     in_matrix: M = list()
     columns: int = int(input("# of columns in matrix: \n"))
@@ -80,15 +80,31 @@ def add_rows(matrix, row1, row2, coeff):
     return in_matrix
 
 
-def elimination(matrix, pvt=True):
+def elimination(matrix, return_pivot=True):
     """Gaussian Elimination"""
     # to break nested loops
     good = True
     in_matrix = matrix
+
     # list of pivot positions aka where leading entries are in the matrix, and later the positions of leading 1s
     # each pivot is a list such that [x, y], with [0, 0] being the first row and first column in a matrix
     pivots: list[list[int]] = []
+
     # correcting the algorithm based on the dimensions of the matrix
+    if not isinstance(in_matrix[0], list):
+        for n in range(len(in_matrix) + 1):
+            if in_matrix[n] != 0:
+                pivots.append([0, n])
+                for m in range(len(in_matrix) + 1):
+                    in_matrix[m] = in_matrix[m] / in_matrix[n]
+
+            if return_pivot:
+                return in_matrix, pivots
+            elif not return_pivot:
+                return in_matrix
+
+    # https://github.com/athyfr/py-learning-gaussian-elimination.git
+
     if len(in_matrix) == len(in_matrix[0]) - 1:
         correction = -1
 
@@ -109,7 +125,7 @@ def elimination(matrix, pvt=True):
 
     # if there are no valid pivot positions, must be a zero matrix w/ no solutions
     if len(pivots) == 0:
-        if pvt == 0:
+        if return_pivot:
             return in_matrix, 0
         else:
             return in_matrix
@@ -195,9 +211,9 @@ def elimination(matrix, pvt=True):
             in_matrix[row][n] = round(in_matrix[row][n], 13)
 
     # all done (:
-    if pvt:
+    if return_pivot:
         return in_matrix, pivots
-    elif not pvt:
+    elif not return_pivot:
         return in_matrix
 
 

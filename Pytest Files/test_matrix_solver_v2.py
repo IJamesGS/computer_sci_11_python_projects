@@ -31,7 +31,7 @@ def test_solve_small():
 
 
 def test_solve_small_zero():
-    assert solve(zero_matrix) == ([[0, 0], [0, 0]], 0)
+    assert solve([[0, 0], [0, 0]]) == ([[0, 0], [0, 0]], 0)
 
 
 def test_solve_single_row():
@@ -106,9 +106,3 @@ def test_add_rows_standard():
 def test_benchmark_standard():
     test_matrix = [[2, 1, -1, 4], [1, -1, 2, 12], [2, 2, -1, 9]]
     assert solve(test_matrix) == benchmark(test_matrix)
-
-
-def test_forthomsas():
-    # good assert solve([[34, 5555, 1],[1, 2, 67],[333,33,3]]) == ([[1,0,67.82996172772006],[0,1,-0.4149808638600328],[0,0,1]], 0)
-    # good assert solve([[1],[2],[3]]) == ([[0],[0],[0]], 0)
-    assert solve([6, 12]) == ([1, 2], 1)

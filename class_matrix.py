@@ -9,9 +9,26 @@ from __future__ import annotations
 
 import random
 
-from matrix_solver_v2 import elimination
+from matrix_solver_v2 import elimination, input_matrix
 
 type M = list[list[float]]
+
+
+def _num_to_str(num: int | float) -> str:
+    """Convert a number to a string, stripping off decimals if possible.
+
+    Returns:
+        A string representation of the number.
+    """
+    if type(num) is int:
+        return str(num)
+
+    output: str = str(num).removesuffix(".0")
+
+    if output == "-0":
+        output = "0"
+
+    return output
 
 
 class Matrix:
@@ -62,10 +79,65 @@ class Matrix:
     # ---- Dunder Methods ----
 
     def __eq__(self, other) -> bool:
+        """Check if the dimensions of this matrix is equal to another's."""
         if not isinstance(other, Matrix):
             raise TypeError("Matrix does not support comparison against other types")
 
         return self.rows == other.rows and self.cols == other.cols
+
+    def __ne__(self, other) -> bool:
+        """Check if the dimensions of this matrix isn't equal to another's."""
+        if not isinstance(other, Matrix):
+            raise TypeError("Matrix does not support comparison against other types")
+
+        return self.rows != other.rows or self.cols != other.cols
+
+    def __repr__(self) -> str:
+        """Represent the matrix as a string.
+
+        Example:
+
+        ::
+            [ 0  1  2.1 | 3 ]
+            [ 1  2    3 | 4 ]
+            [ 2  3    4 | 5 ]
+
+        Returns:
+            A string representation of the matrix.
+        """
+        output: str = ""
+
+        # - Find each column's width
+        column_width: list[int] = [0 for _ in range(self.cols)]
+
+        for col in range(self.cols):
+            for cell in self.matrix[col]:
+                column_width[col] = max(
+                    column_width[col],
+                    len(_num_to_str(cell)),
+                )
+
+        # - Print
+        for row in range(self.rows):
+            output += "["
+            for col in range(self.cols - 1):
+                output += " "
+                output += (
+                    _num_to_str(self.matrix[col][row]).rjust(
+                        column_width[col],
+                    )
+                    + " "
+                )
+            output += (
+                "| "
+                + _num_to_str(self.matrix[self.cols - 1][row]).rjust(
+                    column_width[-1],
+                )
+                + " ]"
+            )
+            output += "\n"
+
+        return output
 
     # ---- Private Methods ----
 
@@ -192,4 +264,63 @@ class Matrix:
 
 
 if __name__ == "__main__":
-    pass
+    while True:
+        prg_inp = str(
+            input("""select a program out of the following:
+            1 - add_matricies
+            2 - multiply_matricies
+            3 - augment_matricies
+            4 - solve_XA_to_B
+            5 - matrix_inverse
+            6 - trace
+            7 -
+            8 -
+            9 -
+            exit program by hitting enter after pressing no keys
+            """)
+        )
+
+        if prg_inp == "":
+            while True:
+                pass
+
+        elif prg_inp == "1":
+            while True:
+                pass
+
+        elif prg_inp == "2":
+            while True:
+                m1 = input_matrix()
+                m2 = input_matrix()
+                matrix1 = Matrix(m1)
+                matrix2 = Matrix(m2)
+                matrix1.mult_matrix(matrix2)
+                print(matrix1)
+
+        elif prg_inp == "3":
+            while True:
+                pass
+
+        elif prg_inp == "4":
+            while True:
+                pass
+
+        elif prg_inp == "5":
+            while True:
+                pass
+
+        elif prg_inp == "6":
+            while True:
+                pass
+
+        elif prg_inp == "7":
+            while True:
+                pass
+
+        elif prg_inp == "8":
+            while True:
+                pass
+
+        elif prg_inp == "9":
+            while True:
+                pass

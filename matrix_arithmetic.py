@@ -19,13 +19,13 @@ def same_dimensions(A: Matrix, B: Matrix) -> bool:
     return rows_A == rows_B and cols_A == cols_B
 
 
-def add_matricies(A: Matrix, B: Matrix, Acoeff=1, Bcoeff=1) -> Matrix:
+def add_matricies(A: Matrix, B: Matrix, Acoeff=1, Bcoeff=1) -> Matrix | str:
     """Add two matrices together."""
     output: Matrix = []
 
     # check if the matrices have the same dimensions
     if not same_dimensions(A, B):
-        raise ValueError("Matrices have mismatched dimensions.")
+        return "error"
 
     rows, cols = get_dimensions(A)
 
@@ -70,14 +70,14 @@ def get_column_vectors(in_matrix: Matrix) -> list[Vector]:
     return output
 
 
-def multiply_matricies(A: Matrix, B: Matrix) -> Matrix:
+def multiply_matricies(A: Matrix, B: Matrix) -> Matrix | str:
     """Get the product of A * B as a matrix."""
     A_vectors = get_row_vectors(A)
     B_vectors = get_column_vectors(B)
     output: Matrix = []
 
     if len(A_vectors[0]) != len(B_vectors[0]):
-        raise ValueError("Matrices have mismatched dimensions.")
+        return "error"
 
     for row in range(len(A_vectors)):
         output.append([])
@@ -96,9 +96,12 @@ def multiply_matricies(A: Matrix, B: Matrix) -> Matrix:
     return output
 
 
-def augment_matricies(A: Matrix, B: Matrix) -> Matrix:
+def augment_matricies(A: Matrix, B: Matrix) -> Matrix | str:
     """Create the augmented matrix [A|B]."""
     output: Matrix = []
+
+    if len(A) != len(B):
+        return "error"
 
     for row1 in range(len(A)):
         output.append([])

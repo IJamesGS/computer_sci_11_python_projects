@@ -25,8 +25,8 @@ def test_get_dimensions():
 def test_same_dimensions():
     assert ma.same_dimensions(matrix_33A, matrix_33B)
     assert ma.same_dimensions(matrix_33B, matrix_33A)
-    assert ma.same_dimensions(matrix_33B, matrix_23)
-    assert ma.same_dimensions(matrix_33A, matrix_23)
+    assert not ma.same_dimensions(matrix_33B, matrix_23)
+    assert not ma.same_dimensions(matrix_33A, matrix_23)
 
 
 def test_add_matricies():
