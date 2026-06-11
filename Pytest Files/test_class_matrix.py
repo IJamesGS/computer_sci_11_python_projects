@@ -68,3 +68,16 @@ def test_augment_matrix():
         [4, 5, 6, 2, 5, 8],
         [7, 8, 9, 3, 6, 9],
     ]
+
+
+def test_inverse_multiplication():
+    testmatrix1 = c.Matrix([[1, 0, 2], [0, -1, -2], [2, -1, 0]])
+    testmatrix2 = c.Matrix([[-1, 2], [2, -6], [2, -4]])
+    testmatrix1.inverse_multiplication(testmatrix2)
+    assert testmatrix1.matrix == [[1, 0], [0, 4], [-1, 1]]
+
+
+def test_inverse():
+    testmatrix1 = c.Matrix([[4, 7], [3, 7]])
+    testmatrix1.inverse()
+    assert testmatrix1.matrix == [[-5, 7], [3, -4]]
