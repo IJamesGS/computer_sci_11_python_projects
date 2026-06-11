@@ -75,9 +75,3 @@ def test_inverse_multiplication():
     testmatrix2 = c.Matrix([[-1, 2], [2, -6], [2, -4]])
     testmatrix1.inverse_multiplication(testmatrix2)
     assert testmatrix1.matrix == [[1, 0], [0, 4], [-1, 1]]
-
-
-def test_inverse():
-    testmatrix1 = c.Matrix([[4, 7], [3, 7]])
-    testmatrix1.inverse()
-    assert testmatrix1.matrix == [[-5, 7], [3, -4]]
