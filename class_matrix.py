@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import random
 
-from matrix_solver_v2 import elimination, input_matrix, print_matrix
+from matrix_solver_v2 import elimination
 
 type M = list[list[float]]
 
